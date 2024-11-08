@@ -1,4 +1,3 @@
-// src/pages/index.tsx
 import Navbar from '../components/Navbar';
 import PostCard from '../components/PostCard';
 import Sidebar from '../components/Sidebar';
