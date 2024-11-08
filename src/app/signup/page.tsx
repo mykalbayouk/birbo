@@ -1,26 +1,35 @@
 "use client";
 
-import Navbar from "../components/Navbar";
-import PostCard from "../components/PostCard"; // Import the PostCard component
-import Sidebar from "../components/Sidebar"; // Import the Sidebar component
+import { useRouter } from "next/navigation"; // Import from next/navigation
 
-export default function Home() {
+export default function Signup() {
+  const router = useRouter();
+
+  const handleLoginClick = () => {
+    router.push("/login");
+  };
+
   return (
-    <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center p-4">
-      <Navbar />
-
-      <main className="flex flex-wrap w-full max-w-screen-lg gap-6 mt-8">
-        
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
-          {[1, 2, 3, 4].map((_, index) => (
-            <PostCard key={index} />
-          ))}
-        </section>
-        
-        <aside className="w-full sm:w-1/3 lg:w-1/4">
-          <Sidebar />
-        </aside>
-      </main>
+    <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center justify-center">
+      <div className="bg-[#fdf7e1] p-8 rounded shadow-md max-w-xs w-full">
+        <h2 className="text-xl font-semibold mb-4 text-center text-gray-900">Sign Up</h2>
+        <label className="block mb-2 text-gray-800">
+          Username
+          <input type="text" className="w-full mt-1 p-2 rounded bg-gray-200" />
+        </label>
+        <label className="block mb-4 text-gray-800">
+          Password
+          <input type="password" className="w-full mt-1 p-2 rounded bg-gray-200" />
+        </label>
+        <button className="w-full bg-[#fdd28e] py-2 rounded mt-4 text-gray-900">Sign Up</button>
+        <button
+          onClick={handleLoginClick}
+          className="w-full mt-4 text-sm text-blue-600 underline text-gray-900"
+        >
+          Already have an account? Log in here
+        </button>
+      </div>
     </div>
   );
 }
+  
