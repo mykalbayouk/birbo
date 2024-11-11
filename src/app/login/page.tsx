@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const router = useRouter();
 
+  const handleLogin = () => {
+    router.push("/");
+  };
+
   const handleSignupClick = () => {
     router.push("/signup");
   };
@@ -25,7 +29,7 @@ export default function Login() {
           Password
           <input type="password" className="w-full mt-1 p-2 rounded bg-gray-200 text-gray-800" />
         </label>
-        <button className="w-full bg-[#fdd28e] py-2 rounded mt-4 text-gray-800">Login</button>
+        <button onClick={handleLogin} className="w-full bg-[#fdd28e] py-2 rounded mt-4 text-gray-800">Login</button>
         <button
           onClick={handleSignupClick}
           className="w-full mt-4 text-sm text-blue-700 underline"
