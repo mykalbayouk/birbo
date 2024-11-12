@@ -18,7 +18,7 @@ const posts: Post[] = [
 ];
 
 export default function Home() {
-  let isLogged: boolean = true;
+  let isLogged: boolean = false;
 
   return (
     <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center p-4">
