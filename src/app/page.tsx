@@ -3,6 +3,7 @@
 import Navbar from "./components/Navbar";
 import PostCard from "./components/PostCard";
 import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
 
 interface Post {
   id: number;
@@ -37,6 +38,8 @@ export default function Home() {
           <Sidebar logged={isLogged} />
         </aside>
       </main>
+
+      <Footer/>
     </div>
   );
 }
