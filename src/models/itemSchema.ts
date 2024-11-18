@@ -4,6 +4,7 @@ interface IItem extends Document {
   title: string;
   description?: string;
   image?: string;
+  user?: string;
   updated_date: Date;
 }
 
@@ -16,6 +17,9 @@ const itemSchema = new Schema<IItem>({
     type: String,
   },
   image: {
+    type: String,
+  },
+  user: {
     type: String,
   },
 });

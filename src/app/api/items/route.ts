@@ -10,8 +10,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-    const {title, description, image } = await request.json();
+    const {title, description, image, user } = await request.json();
     await connectMongoDB();
-    await Item.create({ title, description, image });
+    await Item.create({ title, description, image, user });
     return NextResponse.json({ message: "Item added successfully" }, { status: 201 })
 }
