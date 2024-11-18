@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, { params }:RouteParams) {
 
 export async function PUT(request:NextRequest, { params }:RouteParams ) {
   const { id } = params;
-  const { title: title, description: description, image: image } = await request.json;
+  const { title, description, image } = await request.json();
   await connectMongoDB();
   await Item.findByIdAndUpdate(id, { title, description, image});
   return NextResponse.json({ message: "Item updated " }, { status: 200 });
