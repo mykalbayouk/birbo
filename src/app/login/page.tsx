@@ -1,11 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Login() {
   const router = useRouter();
 
-  const handleLogin = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // if email, check DB email
+    if (checkUsernameOrEmail(username)) {
+      const formData = { username, password };
+      console.log(formData);
+    } else {
+      // if username, check DB username
+      const formData = { username, password };
+      console.log(formData);
+    }
     router.push("/");
   };
 
@@ -20,16 +34,31 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center justify-center">
       <div className="bg-[#fdf7e1] p-8 rounded shadow-md max-w-xs w-full">
-        <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">Login/SignUp</h2>
-        <label className="block mb-2 text-gray-700">
-          Username
-          <input type="text" className="w-full mt-1 p-2 rounded bg-gray-200 text-gray-800" />
-        </label>
-        <label className="block mb-4 text-gray-700">
-          Password
-          <input type="password" className="w-full mt-1 p-2 rounded bg-gray-200 text-gray-800" />
-        </label>
-        <button onClick={handleLogin} className="w-full bg-[#fdd28e] py-2 rounded mt-4 text-gray-800">Login</button>
+        <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">Login</h2>
+        <form
+          onSubmit={handleLogin}
+          className="flex flex-col space-y-4">
+          <label className="block mb-2 text-gray-700">
+            Username or E-mail
+            <input onChange={(e) => setUsername(e.target.value)}
+              type="text" className="w-full mt-1 p-2 rounded bg-gray-200 text-gray-800" />
+          </label>
+          <label
+            className="block mb-4 text-gray-700"
+          >
+            Password
+            <input
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              className="w-full mt-1 p-2 rounded bg-gray-200 text-gray-800" />
+          </label>
+        </form>
+        <button
+          onClick={handleLogin}
+          className="w-full bg-[#fdd28e] py-2 rounded mt-4 text-gray-800"
+        >
+          Login
+        </button>
         <button
           onClick={handleSignupClick}
           className="w-full mt-4 text-sm text-blue-700 underline"
@@ -45,4 +74,8 @@ export default function Login() {
       </div>
     </div>
   );
+}
+
+function checkUsernameOrEmail(usernameOrEmail: string): boolean {
+  return usernameOrEmail.includes("@");
 }
