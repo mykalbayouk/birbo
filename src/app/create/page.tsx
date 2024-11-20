@@ -1,5 +1,5 @@
 "use client";
-
+// will have to be loaded on server to get username
 import { useRouter } from "next/navigation"; // Import from next/navigation
 import { useState } from "react";
 
@@ -7,17 +7,35 @@ export default function Create() {
     const router = useRouter();
 
     const [title, setTitle] = useState("");
-    const [imgLink, setImgLink] = useState("");
-    const [caption, setCaption] = useState("");
+    const [image, setImgLink] = useState("");
+    const [description, setCaption] = useState("");
 
     const handleCreate = (e: React.FormEvent) => {
         e.preventDefault();
-        const formData = { title, imgLink, caption };
-        if (title === "" || imgLink === "" || caption === "") {
+        const formData = { title, image, description };
+        if (title === "" || image === "" || description === "") {
             alert("Please fill out all fields");
             return;
         }
-        console.log(formData);
+        fetch("/api/items", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Success:", data);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
         router.push("/");
     }
 
@@ -35,12 +53,12 @@ export default function Create() {
                         <input onChange={(e) => setTitle(e.target.value)}
                             type="text" className="w-full mt-1 p-2 rounded bg-gray-200" />
                     </label>
-                    <label htmlFor="imgLink" className="block mb-2 text-gray-800 text-center">
+                    <label htmlFor="image" className="block mb-2 text-gray-800 text-center">
                         Insert Link to Image:
                         <input onChange={(e) => setImgLink(e.target.value)}
                             type="url" className="w-full mt-1 p-2 rounded bg-gray-200" />
                     </label>
-                    <label htmlFor="caption" className="block mb-4 text-gray-800 text-center">
+                    <label htmlFor="description" className="block mb-4 text-gray-800 text-center">
                         Insert Caption:
                         <textarea onChange={(e) => setCaption(e.target.value)}
                             className="w-full mt-1 p-2 rounded bg-gray-200 h-24" />

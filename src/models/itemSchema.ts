@@ -2,10 +2,9 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface IItem extends Document {
   title: string;
-  description?: string;
-  image?: string;
-  user?: string;
-  updated_date: Date;
+  description: string;
+  image: string;
+  user: string;
 }
 
 const itemSchema = new Schema<IItem>({
@@ -15,9 +14,11 @@ const itemSchema = new Schema<IItem>({
   },
   description: {
     type: String,
+    required: true,
   },
   image: {
     type: String,
+    required: true,
   },
   user: {
     type: String,
