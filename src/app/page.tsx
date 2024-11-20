@@ -52,19 +52,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center p-4">
       <Navbar logged={isLogged} />
-
       <main className="flex flex-wrap w-full max-w-screen-lg gap-6 mt-8">
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
           {posts.map((po, index) => (
             <PostCard key={index} post={po} />
           ))}
         </section>
-
         <aside className="w-full sm:w-1/3 lg:w-1/4">
           <Sidebar logged={isLogged} />
         </aside>
       </main>
-
       <Footer />
     </div>
   );
