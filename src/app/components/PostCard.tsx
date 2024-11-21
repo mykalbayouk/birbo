@@ -4,8 +4,9 @@ import React from 'react';
 export default function PostCard({ post }: { post: { id: number; image: string; description: string, title: string, user: string } }) {
   console.log("PostCard:", post);
   return (
-    <div className="bg-[#fdf7e1] rounded-lg shadow-md p-4 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl max-h-56 overflow-hidden">
+    <div className="bg-[#fdf7e1] rounded-lg shadow-md p-4 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl overflow-hidden">
     <div className="flex flex-col items-center">
+      <p className="text-xl font-bold mb-4 text-gray-900">{post.title}</p>
       <img src={post.image} alt={post.title} className="bg-gray-300 h-32 rounded mb-2" />
       <div className="text-center text-gray-800">
       <p>{post.description}</p>
