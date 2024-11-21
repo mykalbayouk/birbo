@@ -10,7 +10,7 @@ export default function Sidebar({ logged }: { logged: boolean }) {
         <div className="flex space-x-8 items-baseline">
           <h2 className="text-xl font-bold mb-4 text-gray-900">Your Posts</h2>
           <Link href="/create">
-            <button className="bg-[#fdd28e] text-xs text-gray-800 px-2 py-1 rounded-full shadow">
+            <button className="bg-[#fdd28e] text-xs text-gray-800 px-2 py-1 ml-7 rounded-full shadow">
               Create
             </button>
           </Link>
