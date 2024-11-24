@@ -10,10 +10,23 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = { username, email, password };
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if(!response.ok) {
+      throw new Error("handleSignUp error occurred");
+    }
+
     console.log(formData); // TODO: replace with DB logic
+
     router.push("/");
   };
 

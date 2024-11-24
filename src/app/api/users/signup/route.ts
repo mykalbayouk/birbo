@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
     }
     try {
         await User.create(newUser);
+        User.exists(newUser);
         return NextResponse.json({ message: "User created" }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ message: "Some error occurred" }, { status: 500 });
