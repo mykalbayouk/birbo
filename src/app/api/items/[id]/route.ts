@@ -8,7 +8,7 @@ interface RouteParams {
   params: { id: string };
 }
 export async function GET(request: NextRequest, { params }:RouteParams) {
-  const { id } = params;
+  const { id } = await params;
   await connectMongoDB();
   const item = await Item.findOne({ _id: id })
   return NextResponse.json({ item }, { status: 200 })
