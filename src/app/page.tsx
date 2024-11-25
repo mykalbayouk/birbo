@@ -49,9 +49,13 @@ export default function Home() {
     getPosts();
   }, []);
 
+  const setLogged = () => {
+    setIsLogged(!isLogged);
+  };
+
   return (
     <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center p-4">
-      <Navbar logged={isLogged} />
+      <Navbar logged={isLogged} setLogged={setLogged} />
       <main className="flex flex-wrap w-full max-w-screen-lg gap-6 mt-8">
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 flex-1">
           {posts.map((po, index) => (
