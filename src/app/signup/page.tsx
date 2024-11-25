@@ -13,22 +13,31 @@ export default function Signup() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = { username, email, password };
-    const response = await fetch('/api/users', {
-      method: 'POST',
+
+    fetch("/api/users/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-    if(!response.ok) {
-      throw new Error("handleSignUp error occurred");
-    }
-
-    console.log(formData); // TODO: replace with DB logic
+    console.log(formData);
 
     router.push("/");
-  };  ` `
+  };
 
   const handleLogin = () => {
     router.push("/login");

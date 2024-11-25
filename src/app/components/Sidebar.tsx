@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import EditPost from './EditPost';
+import { checkSession } from '../util/checkLogged';
+
 
 interface Post {
   _id: number;
@@ -10,7 +14,19 @@ interface Post {
   description: string;
 }
 
-export default function Sidebar({ logged, posts }: { logged: boolean; posts: Post[] }) {
+
+export default function Sidebar({ posts }: { posts: Post[] }) {
+  const [logged, setLogged] = useState<boolean>(false);
+  
+  useEffect(() => {
+    const fetchSession = async () => {
+      const username = await checkSession();
+      if(username){
+        setLogged(true);
+      }
+    };
+    fetchSession();
+  }, []);
 
   if (logged) {
     return (
