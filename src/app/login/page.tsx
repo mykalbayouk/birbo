@@ -31,11 +31,9 @@ export default function Login() {
     // if email, check DB email
     if (checkUsernameOrEmail(username)) {
       const formData = { username, password };
-      console.log(formData);
     } else {
       // if username, check DB username
       const formData = { username, password };
-      console.log(formData);
     }
 
     router.push("/");

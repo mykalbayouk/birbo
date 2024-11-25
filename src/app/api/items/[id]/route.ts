@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, { params }:RouteParams) {
 }
 
 export async function PUT(request:NextRequest, { params }:RouteParams ) {
-  const { id } = params;
+  const { id } = await params;
   const { title, description, image } = await request.json();
   await connectMongoDB();
   await Item.findByIdAndUpdate(id, { title, description, image});
@@ -23,7 +23,7 @@ export async function PUT(request:NextRequest, { params }:RouteParams ) {
 }
 
 export async function DELETE(request: NextRequest, { params }:RouteParams ) {
-  const { id } = params;
+  const { id } = await params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return NextResponse.json({ message: "Invalid ID format" }, { status: 400 })
   }

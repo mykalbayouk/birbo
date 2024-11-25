@@ -28,7 +28,7 @@ export default function Signup() {
     console.log(formData); // TODO: replace with DB logic
 
     router.push("/");
-  };
+  };  ` `
 
   const handleLogin = () => {
     router.push("/login");
