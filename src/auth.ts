@@ -1,36 +1,33 @@
 import { authConfig } from "./auth.config";
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { User } from "./models/userSchema";
-
-interface Credentials {
-    email: string;
-    password: string;
-}
+import User from "./models/userSchema";
 
 export const {
-    handlers: { GET, POST },
+    handlers : {GET, POST},
     auth,
     signIn,
     signOut,
 } = NextAuth({
     ...authConfig,
     providers: [
-        CredentialsProvider({
+        Credentials({
             credentials:  {
-                email: { label: "Email", type: "text" },
-                password: { label: "Password", type: "password" },
+                email: { },
+                password: { },
             },
             async authorize(credentials) {
                 if (!credentials) return null;
+                
+                console.log("credentials" , credentials);
 
                 try {
                     const user = await User.findOne({ email: credentials.email }).lean();
 
                     if (user) {
                         const isMatch = await bcrypt.compare(
-                            credentials.password,
+                            credentials.password as string,
                             user.password
                         );
 

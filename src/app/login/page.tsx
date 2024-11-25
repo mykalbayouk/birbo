@@ -2,23 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn, signOut } from "@/auth";
-import { StringExpressionOperatorReturningBoolean } from "mongoose";
-
-export async function doCredentialLogin(formData: FormData): Promise<any> {
- const email = formData.get("email") as string;
- const password = formData.get("password") as string;
-
- try {
-  const response = await signIn("credentials", {
-    email,
-    password,
-    redirect: false,
-  });
- } catch (err: any) {
-  throw err;
- }
-}
+import { doLogin } from "./loginHandler";
 
 export default function Login() {
   const router = useRouter();
@@ -31,9 +15,11 @@ export default function Login() {
     // if email, check DB email
     if (checkUsernameOrEmail(username)) {
       const formData = { username, password };
+      const user = doLogin(formData);
     } else {
       // if username, check DB username
       const formData = { username, password };
+      doLogin(formData);
     }
 
     router.push("/");
