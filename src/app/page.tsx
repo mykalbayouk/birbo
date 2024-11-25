@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 
 export interface Post {
-  id: number;
+  _id: number;
   title: string;
   user: string;
   image: string;
@@ -38,16 +38,28 @@ const fetchPosts = async () => {
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLogged, setIsLogged] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getPosts = async () => {
-      const fetchedPosts = await fetchPosts();
-      const arr = Object.keys(fetchedPosts).map((key) => fetchedPosts[key]).at(0);
-      setPosts(arr);
+      try {
+        const fetchedPosts = await fetchPosts();
+        const arr = Object.keys(fetchedPosts).map((key) => fetchedPosts[key]).at(0);
+        setPosts(arr);
+      } finally {
+        setLoading(false);
+      }
     };
     
     getPosts();
   }, []);
+
+  if (loading) {
+    return <div className="min-h-screen bg-[#f4d9a0] flex justify-center items-center">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
+    </div>;
+  }
+  
 
   return (
     <div className="min-h-screen bg-[#f4d9a0] flex flex-col items-center p-4">
@@ -59,7 +71,7 @@ export default function Home() {
           ))}
         </section>
         <aside className="w-full sm:w-1/3 lg:w-1/4">
-          <Sidebar logged={isLogged} />
+          <Sidebar logged={isLogged} posts={posts} />
         </aside>
       </main>
       <Footer />

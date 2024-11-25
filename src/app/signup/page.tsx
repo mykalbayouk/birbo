@@ -15,7 +15,7 @@ export default function Signup() {
     const formData = { username, email, password };
     console.log(formData); // TODO: replace with DB logic
     router.push("/");
-  };
+  };  ` `
 
   const handleLogin = () => {
     router.push("/login");
