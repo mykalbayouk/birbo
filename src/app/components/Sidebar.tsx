@@ -1,8 +1,16 @@
 import Link from 'next/link';
 import React from 'react';
+import EditPost from './EditPost';
 
-export default function Sidebar({ logged }: { logged: boolean }) {
-  console.log(logged);
+interface Post {
+  _id: number;
+  title: string;
+  user: string;
+  image: string;
+  description: string;
+}
+
+export default function Sidebar({ logged, posts }: { logged: boolean; posts: Post[] }) {
 
   if (logged) {
     return (
@@ -16,9 +24,8 @@ export default function Sidebar({ logged }: { logged: boolean }) {
           </Link>
         </div>
         <div className="flex flex-col space-y-4">
-          <div className="bg-gray-300 h-32 rounded"></div>
-          <div className="bg-gray-300 h-32 rounded"></div>
-          <div className="bg-gray-300 h-32 rounded"></div>
+         <EditPost post={posts[0]}/>
+         <EditPost post={posts[1]}/>
         </div>
       </aside>
     );
