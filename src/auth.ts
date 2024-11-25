@@ -22,7 +22,7 @@ export const {
                 email: { label: "Email", type: "text" },
                 password: { label: "Password", type: "password" },
             },
-            async authorize(credentials: Credentials | undefined) {
+            async authorize(credentials) {
                 if (!credentials) return null;
 
                 try {
