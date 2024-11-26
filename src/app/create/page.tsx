@@ -2,6 +2,7 @@
 // will have to be loaded on server to get username
 import { useRouter } from "next/navigation"; // Import from next/navigation
 import { useState } from "react";
+import { checkSession } from "../util/checkLogged";
 
 export default function Create() {
     const router = useRouter();
@@ -9,34 +10,46 @@ export default function Create() {
     const [title, setTitle] = useState("");
     const [image, setImgLink] = useState("");
     const [description, setCaption] = useState("");
+    const [user, setUser] = useState("");
 
     const handleCreate = (e: React.FormEvent) => {
         e.preventDefault();
-        const formData = { title, image, description };
-        if (title === "" || image === "" || description === "") {
-            alert("Please fill out all fields");
-            return;
-        }
-        fetch("/api/items", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
+        checkSession().then((username) => {
+            if (typeof username === "string") {
+                setUser(username);
+                const formData = { title, image, description, user: username };
+                if (title === "" || image === "" || description === "") {
+                    alert("Please fill out all fields");
+                    return;
                 }
-                return response.json();
-            })
-            .then((data) => {
-                console.log("Success:", data);
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
-        router.push("/");
+                fetch("/api/items", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Network response was not ok");
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        console.log("Success:", data);
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+                router.push("/");
+            } else {
+                alert("Failed to retrieve username");
+            }
+        }).catch((error) => {
+            console.error("Error:", error);
+            alert("Failed to retrieve username");
+        });
+        
     }
 
     const handleHome = () => {
