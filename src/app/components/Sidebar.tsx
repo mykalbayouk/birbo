@@ -1,10 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import EditPost from './EditPost';
+import { useEffect, useState } from 'react';
 import { checkSession } from '../util/checkLogged';
-
+import EditPost from './EditPost';
 
 interface Post {
   _id: number;
@@ -14,19 +13,22 @@ interface Post {
   description: string;
 }
 
-
 export default function Sidebar({ posts }: { posts: Post[] }) {
   const [logged, setLogged] = useState<boolean>(false);
-  
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
   useEffect(() => {
     const fetchSession = async () => {
       const username = await checkSession();
-      if(username){
+      if (username) {
         setLogged(true);
+        setCurrentUser(username);
       }
     };
     fetchSession();
   }, []);
+
+  const userPosts = posts.filter(post => post.user === currentUser);
 
   if (logged) {
     return (
@@ -40,8 +42,13 @@ export default function Sidebar({ posts }: { posts: Post[] }) {
           </Link>
         </div>
         <div className="flex flex-col space-y-4">
-         <EditPost post={posts[0]}/>
-         <EditPost post={posts[1]}/>
+          {userPosts.length > 0 ? (
+            userPosts.map((post) => (
+              <EditPost key={post._id} post={post} />
+            ))
+          ) : (
+            <p className="text-gray-800">You have no posts yet.</p>
+          )}
         </div>
       </aside>
     );
@@ -52,7 +59,5 @@ export default function Sidebar({ posts }: { posts: Post[] }) {
         <p className="text-gray-800">Please sign in to create posts.</p>
       </aside>
     );
-  };
+  }
 }
-
-

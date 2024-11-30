@@ -1,4 +1,3 @@
-import React from 'react';
 
 
 export default function PostCard({ post }: { post: { _id: number; image: string; description: string, title: string, user: string } }) {
