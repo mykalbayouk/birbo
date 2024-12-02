@@ -1,6 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 
+/**
+ * Not found page
+ * @returns 
+ */
 export default function NotFound() {
   const router = useRouter();
 

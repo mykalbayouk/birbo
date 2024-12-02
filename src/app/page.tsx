@@ -3,7 +3,6 @@
 import Navbar from "./components/Navbar";
 import PostCard from "./components/PostCard";
 import Sidebar from "./components/Sidebar";
-import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 
 export interface Post {
@@ -13,7 +12,10 @@ export interface Post {
   image: string;
   description: string;
 }
-
+/**
+ * fetchPosts from the server
+ * @returns 
+ */
 const fetchPosts = async () => {
   const response = await fetch("/api/items", {
     method: "GET",
@@ -35,6 +37,10 @@ const fetchPosts = async () => {
   return data;
 };
 
+/**
+ * Home page of application with listed post and all compoenents
+ * @returns 
+ */
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -73,7 +79,6 @@ export default function Home() {
           <Sidebar posts={posts} />
         </aside>
       </main>
-      <Footer />
     </div>
   );
 }

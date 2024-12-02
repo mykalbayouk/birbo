@@ -2,7 +2,12 @@
 
 import { useRouter } from "next/navigation"; // Import from next/navigation
 import { useState } from "react";
+import { doLogin } from "../login/loginHandler";
 
+/**
+ * Sign up page
+ * @returns 
+ */
 export default function Signup() {
   const router = useRouter();
 
@@ -10,11 +15,14 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  /**
+   * Handle sign up
+   */
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = { username, email, password };
-
-    fetch("/api/users/signup", {
+    // Fetch request to sign up
+    await fetch("/api/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,14 +37,14 @@ export default function Signup() {
       })
       .then((data) => {
         console.log("Success:", data);
+      }).then(() => {
+        // Login user after sign up
+        doLogin({ email, password });
+        router.push("/");
       })
       .catch((error) => {
-        console.error("Error:", error);
+        alert("User already exist. Please try again.");
       });
-
-    console.log(formData);
-
-    router.push("/");
   };
 
   const handleLogin = () => {

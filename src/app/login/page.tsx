@@ -4,25 +4,27 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { doLogin } from "./loginHandler";
 
+/**
+ * Login page
+ * @returns 
+ */
 export default function Login() {
   const router = useRouter();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  // Handle login
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // if email, check DB email
-    if (checkUsernameOrEmail(username)) {
-      const formData = { username, password };
-      const user = doLogin(formData);
-    } else {
-      // if username, check DB username
-      const formData = { username, password };
-      doLogin(formData);
+    const formData = { email, password };
+    try {
+      // Login user
+      await doLogin(formData);
+      router.push("/");
+    } catch (error) {
+      alert("Invalid credentials, please try again.");
     }
-
-    router.push("/");
   };
 
   const handleSignupClick = () => {
@@ -41,8 +43,8 @@ export default function Login() {
           onSubmit={handleLogin}
           className="flex flex-col space-y-4">
           <label className="block mb-2 text-gray-700">
-            Username or E-mail
-            <input onChange={(e) => setUsername(e.target.value)}
+            E-mail
+            <input onChange={(e) => setEmail(e.target.value)}
               type="text" className="w-full mt-1 p-2 rounded bg-gray-200 text-gray-800" />
           </label>
           <label
@@ -78,6 +80,3 @@ export default function Login() {
   );
 }
 
-function checkUsernameOrEmail(usernameOrEmail: string): boolean {
-  return usernameOrEmail.includes("@");
-}

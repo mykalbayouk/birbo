@@ -4,6 +4,12 @@ import NextAuth from "next-auth";
 
 const { auth } = NextAuth(authConfig);
 
+/**
+ * Middleware function to check if user is authenticated
+ * @param request 
+ * @returns 
+ */
+
 export async function middleware(request: any) {
     const { nextUrl } = request;
     const session = await auth();
@@ -19,7 +25,7 @@ export async function middleware(request: any) {
 
 export const config = {
     matcher: [
-        "/create-item/",
-        "/edit-item/:path*"
+        "/create/",
+        "/edit/:path*"
     ]
 };

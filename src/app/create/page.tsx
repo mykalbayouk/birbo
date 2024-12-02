@@ -1,9 +1,13 @@
 "use client";
-// will have to be loaded on server to get username
+
 import { useRouter } from "next/navigation"; // Import from next/navigation
 import { useState } from "react";
 import { checkSession } from "../util/checkLogged";
 
+/**
+ * Create page that houses the form to create a post
+ * @returns 
+ */
 export default function Create() {
     const router = useRouter();
 
@@ -12,6 +16,7 @@ export default function Create() {
     const [description, setCaption] = useState("");
     const [user, setUser] = useState("");
 
+    // Create post function
     const handleCreate = (e: React.FormEvent) => {
         e.preventDefault();
         checkSession().then((username) => {

@@ -6,7 +6,11 @@ import { useState, useEffect } from "react";
 interface RouteParams {
     params: { id: string };
   }
-
+/**
+ * takes in post ID and fetches the post data to edit
+ * @param param0 
+ * @returns 
+ */
 export default function Edit({ params }: RouteParams) {
     const router = useRouter();
     const [title, setTitle] = useState("");
@@ -15,6 +19,7 @@ export default function Edit({ params }: RouteParams) {
 
     const [loading, setLoading] = useState(true);
 
+    // Fetch post data
     useEffect(() => {
         const fetchPost = async () => {
             const response = await fetch(`/api/items/${params.id}`, {
@@ -37,7 +42,7 @@ export default function Edit({ params }: RouteParams) {
     }, []);
 
   
-
+    // edit post function
     const handleEdit = async (e: React.FormEvent) => {
         e.preventDefault();
         const response = await fetch(`/api/items/${params.id}`, {

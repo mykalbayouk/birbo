@@ -8,9 +8,13 @@ export async function doLogout() {
     
     await signOut({ redirectTo: '/' });
 }
-
-export async function doLogin(formData: { username: string, password: string }): Promise<any> {
-    const email = formData.username;
+/**
+ * server side login function that runs async
+ * @param formData 
+ * @returns 
+ */
+export async function doLogin(formData: { email: string, password: string }): Promise<any> {
+    const email = formData.email;
     const password = formData.password;
 
     try {
@@ -21,12 +25,11 @@ export async function doLogin(formData: { username: string, password: string }):
         });
 
         if (user) {
-            console.log("User logged in successfully.");
             return user;
         } else {
-            throw new Error("Invalid credentials.");
+            throw new Error("Invalid credentials. 1");
         }
     } catch (error) {
-        throw new Error("Invalid credentials.");
+        throw new Error("Invalid credentials. 2");
     }
 }

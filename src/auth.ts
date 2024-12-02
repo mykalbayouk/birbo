@@ -4,6 +4,10 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "./models/userSchema";
 
+/**
+ * Authentication handlers
+ */
+
 export const {
     handlers : {GET, POST},
     auth,
