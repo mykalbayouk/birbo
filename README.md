@@ -6,9 +6,6 @@ Birbo is a web application designed to help users manage their bird-watching act
 
 - User authentication and profile management
 - Bird sighting logging and tracking
-- Interactive map for sighting locations
-- Bird species information and search functionality
-- Community forums for bird enthusiasts
 
 ## Technologies Used
 
